@@ -1,6 +1,17 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 function Header() {
+  // const : constant : hằng số
+  const url = "http://127.0.0.1:8000/api/";
+  //==State ===
+  const [brands, setBrands] = useState([]);
+  useEffect(() => {
+    fetch(url + "brands")
+      .then((res) => res.json())
+      .then((res) => {
+        setBrands(res);
+      });
+  }, []);
   return (
     <>
       <nav className="navbar navbar-expand-lg navbar-light bg-light">
@@ -31,7 +42,28 @@ function Header() {
                   News
                 </a>
               </li>
-              <li className="nav-item dropdown"></li>
+              <li className="nav-item dropdown">
+                <a
+                  className="nav-link dropdown-toggle"
+                  href="#"
+                  id="navbarDropdown"
+                  role="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  Thương hiệu
+                </a>
+                <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
+                  {brands.length > 0 &&
+                    brands.map((item, index) => (
+                      <li>
+                        <a className="dropdown-item" href="#">
+                          {item.name}
+                        </a>
+                      </li>
+                    ))}
+                </ul>
+              </li>
             </ul>
             <form className="d-flex">
               <input
