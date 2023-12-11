@@ -5,7 +5,13 @@ function Header() {
   const url = "http://127.0.0.1:8000/api/";
   //==State ===
   const [brands, setBrands] = useState([]);
+  const [cate, setCate] = useState([]);
   useEffect(() => {
+    fetch(url + "categrories")
+      .then((res) => res.json())
+      .then((res) => {
+        setCate(res);
+      });
     fetch(url + "brands")
       .then((res) => res.json())
       .then((res) => {
@@ -56,6 +62,28 @@ function Header() {
                 <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
                   {brands.length > 0 &&
                     brands.map((item, index) => (
+                      <li>
+                        <a className="dropdown-item" href="#">
+                          {item.name}
+                        </a>
+                      </li>
+                    ))}
+                </ul>
+              </li>
+              <li className="nav-item dropdown">
+                <a
+                  className="nav-link dropdown-toggle"
+                  href="#"
+                  id="navbarDropdown"
+                  role="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  Loại sản phẩm
+                </a>
+                <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
+                  {cate.length > 0 &&
+                    cate.map((item, index) => (
                       <li>
                         <a className="dropdown-item" href="#">
                           {item.name}
